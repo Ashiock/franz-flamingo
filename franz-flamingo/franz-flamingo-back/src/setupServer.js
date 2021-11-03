@@ -77,7 +77,7 @@ const setupRingtoneUp = async (server) => {
     const rngArgs = {
       title: req.body.title,
       desc: req.body.desc,
-      link: pubName,
+      link: filename,
       owner: veriUser,
       downloads: "0",
       file_id: FileAdd._id.toString(),
@@ -99,6 +99,11 @@ const setupRingtoneUp = async (server) => {
     const { filelink } = req.params;
     const RingtoneSel = await Ringtone.findOne({ link: filelink }, "file_id");
     const FileSel = await File.findById(RingtoneSel.file_id);
+    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+    RingtoneSel, "Filesel:",FileSel,
+    "000000000000000000000000000000000000000000");
+    console.log("file_id:",RingtoneSel.file_id,"ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ");
+
     console.log(
       "####################",
       RingtoneSel.file_id,
@@ -113,7 +118,8 @@ const setupRingtoneUp = async (server) => {
       function (err, ssid) {
         //console.log(err);
         downloadSid = ssid;
-        console.log(downloadSid);
+        console.log("el download ssid",downloadSid);
+        if(err) console.log("el error", err);
         // ...
         // Get the download file path
         getDownloadFilePath(downloadSid, function (err, data) {
@@ -144,7 +150,7 @@ const setupRingtoneUp = async (server) => {
     //console.log( downloadSid);
   });
   //console.log("LA MAMA DE LA MAMA DE LA MAMA", path.join(__dirname, 'public'))
-  server.use("/static", express.static(path.join("resources/", "public")));
+  server.use("/static", express.static(path.join("resources/", "ringtones")));
 };
 
 
