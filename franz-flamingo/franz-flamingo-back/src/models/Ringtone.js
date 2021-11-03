@@ -23,6 +23,11 @@ const ringtone_Schema = new mongoose.Schema(
             type: String,
             required: true,
         },
+        file_id: {
+            type: String,
+            required: true,
+            select: false
+        },
 
     },
     { timestamps: true }
